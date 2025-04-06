@@ -5,6 +5,7 @@ import nltk
 from nltk.tokenize import word_tokenize
 
 nltk.download('punkt')
+nltk.download('punkt_tab')
 
 app_name = ["Dentist Sara", "Dr. Sabiha Akter Sara"]
 developer_name = "Siddiqur Rahman, an artificial intelligence enthusiast"
