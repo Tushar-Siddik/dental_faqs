@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dental Q&A</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+    <h2>History</h2>
+    <ul id="question-list">
+        {% for item in history %}
+            <hr>
+            <li onclick="toggleAnswer('{{ loop.index0 }}')">
+                <strong>{{ item.question }}</strong>
+                <div id="answer-{{ loop.index0 }}" class="hidden">
+                    <p><strong>Answer:</strong> <br> {{ item.answer }}</p>
+                </div>
+            </li>
+            <hr>
+        {% endfor %}
+    </ul>
+    <!-- Resizable handle -->
+    <div class="resizer" id="resizer"></div>
+</div>
+
+
+<!-- Main Content -->
+<div class="container">
+    <button id="home-btn" class="home-btn" onclick="goHome()">
+        <i class="fas fa-home"></i>
+    </button>
+    
+    <h1>Dental FAQs</h1>
+    
+    <!-- Tabs -->
+    <div class="tabs">
+        <div id="ask-question-tab" class="{{ 'active' if active_tab == 'ask-question' else '' }}" onclick="switchTab('ask-question')">Ask Question</div>
+        <div id="articles-tab" class="{{ 'active' if active_tab == 'articles' else '' }}" onclick="switchTab('articles')">Articles</div>
+    </div>
+
+    
+    <!-- Question Tab Content -->
+    <div id="ask-question" class="tab-content {{ 'active' if active_tab == 'ask-question' else '' }}">
+        <form method="POST">
+            <div class="form-group">
+                <label for="question">Enter your question about dental care:</label>
+                <input type="text" id="question" name="question" placeholder="Ask your question here..." required>
+                
+            </div>
+            <div class="form-group">
+                <button type="submit">Get Answer</button>
+            </div>
+        </form>
+
+        <!-- Display Answer -->
+        {% if history %}
+            <div class="answer">
+                <h3>Answer:</h3>
+                <p>{{ history[-1].answer }}</p>
+            </div>
+        {% endif %}
+    </div>
+    
+    <!-- Articles Tab Content -->
+    <div id="articles" class="tab-content {{ 'active' if active_tab == 'articles' else '' }}">
+        <form method="POST">
+            <div class="form-group">
+                <label for="article-query">Enter your query to search PubMed articles:</label>
+                <input type="text" id="article-query" name="article-query" placeholder="Search for dental articles..." required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Get Articles</button>
+            </div>
+        </form>
+
+        <!-- Display articles -->
+        {% if articles %}
+            <div class="article-list">
+                <!-- Display the article query above the articles section -->
+            {% if article_query %}
+                <p><strong>Query for articles: </strong>{{ article_query }}</p>
+            {% endif %}
+                <h3>PubMed Articles:</h3>
+                <ul>
+                    {% for article in articles %}
+                        <li><a href="{{ article.link }}" target="_blank">{{ article.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- History Section (for large screens, it's in the sidebar; for small screens, at the bottom) -->
+    <div class="history">
+        <h3>History</h3>
+        <ul id="question-list">
+            {% for item in history %}
+            <hr>
+            <li onclick="toggleAnswer('{{ loop.index0 }}')">
+                <strong>{{ item.question }}</strong>
+                <div id="answer-{{ loop.index0 }}" class="hidden">
+                    <p><strong>Answer:</strong> <br> {{ item.answer }}</p>
+                </div>
+            </li>
+            <hr>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<script>
+    // JavaScript to make the sidebar resizable
+    let isResizing = false;
+    let lastDownX = 0;
+
+    // Get the sidebar and the resizer handle
+    const sidebar = document.getElementById("sidebar");
+    const resizer = document.getElementById("resizer");
+
+    // Minimum and maximum width constraints for the sidebar
+    const MIN_WIDTH = 200; // Minimum width in pixels
+    const MAX_WIDTH = 280; // Maximum width in pixels
+
+    // Resize speed factor (increase this number for faster resizing)
+    const SPEED_FACTOR = 2;
+
+    // Mouse down event to start resizing
+    resizer.addEventListener("mousedown", (e) => {
+        isResizing = true;
+        lastDownX = e.clientX;
+        document.body.style.userSelect = "none";  // Prevent text selection while resizing
+    });
+
+    // Mouse move event to resize the sidebar
+    document.addEventListener("mousemove", (e) => {
+        if (!isResizing) return;
+
+        const offsetRight = (e.clientX - lastDownX) * SPEED_FACTOR;  // Multiply by SPEED_FACTOR for faster resizing
+        const newWidth = sidebar.offsetWidth + offsetRight;  // New width of the sidebar
+
+        // Apply the new width, ensuring it stays within the min/max bounds
+        if (newWidth >= MIN_WIDTH && newWidth <= MAX_WIDTH) {
+            sidebar.style.width = newWidth + "px";
+            lastDownX = e.clientX;  // Update the last position for the next movement
+        }
+    });
+
+    // Mouse up event to stop resizing
+    document.addEventListener("mouseup", () => {
+        isResizing = false;
+        document.body.style.userSelect = "auto";  // Restore text selection
+    });
+
+</script>
+
+<script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
+
+</body>
+</html>

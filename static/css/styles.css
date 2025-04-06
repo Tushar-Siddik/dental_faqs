@@ -1,0 +1,315 @@
+/* Apply box-sizing to include padding and border in the width */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background-color: #f9f9f9;
+}
+
+/* Main container with content */
+.container {
+    position: relative;
+    margin-left: 220px; /* Sidebar width */
+    padding: 20px;
+    width: calc(100% - 220px); /* Adjust content width */
+}
+
+h1 {
+    text-align: center;
+    padding-top: 60px; /* Adjust this value to make space for the home button */
+}
+
+/* Form styling */
+.form-group {
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 500px;  /* You can adjust the max-width based on your design */
+    margin: 0 auto;  /* This centers the form-group container horizontally */
+}
+
+label {
+    font-size: 16px;
+    margin-bottom: 5px; /* Adds a little space between the label and the input field */
+    display: block;  /* Makes the label a block element so it stacks above the input */
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    display: block; /* Makes input behave like a block element, ensuring it's on a new line */
+    margin-top: 5px;  /* Small margin to add space between label and input */
+}
+
+button[type="submit"] {
+    width: 100%;  /* Ensure the button takes full width of its container */
+    padding: 10px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    display: block;  /* Make the button block-level */
+}
+
+button[type="submit"]:hover {
+    transform: scale(1.05);  /* Slightly enlarge the button on hover */
+}
+
+
+/* Additional optional styling for the form elements */
+form {
+    width: 100%;
+    max-width: 500px;  /* Set a max width for the form */
+    margin: 0 auto;  /* Center the form */
+}
+
+
+/* General button styling */
+button {
+    width: 100%;  /* Ensure the button takes full width of its container */
+    padding: 10px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    display: block;  /* Make the button block-level */
+    transition: background-color 0.3s ease, transform 0.3s ease;  /* Smooth transition for background and transform */
+}
+
+/* Hover effect for all buttons */
+button:hover {
+    background-color: #45a049;  /* Darker green when hovered */
+}
+
+
+/* Sidebar Styling */
+.sidebar {
+    width: 200px;  /* Default width */
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: #2C3E50;
+    color: white;
+    padding-top: 20px;
+    padding-left: 10px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow: hidden;
+    transition: width 0.2s ease; /* Smooth transition for resizing */
+}
+
+/* Sidebar Resizer Handle */
+.resizer {
+    position: absolute;
+    right: -5px; /* Position it at the right edge of the sidebar */
+    top: 0;
+    width: 10px;  /* Width of the resizer handle */
+    height: 100%;  /* Full height of the sidebar */
+    cursor: ew-resize; /* Horizontal resize cursor */
+    background-color: #34495E;  /* Darker background color */
+}
+
+/* Other Sidebar content (h2, ul, etc.) remains as is */
+.sidebar h2 {
+    text-align: center;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 10px;
+    margin: 5px 0;
+    cursor: pointer;
+}
+
+.sidebar ul li:hover {
+    background-color: #34495E;
+}
+
+.history ul{
+    list-style-type: none;
+    padding: 0;
+}
+
+
+/* Article Styling */
+.article-list {
+    /* margin-top: 20px; */
+    width: 100%;  /* Makes the article section take full width */
+    max-width: 500px;  /* Matches the max-width of the form-group */
+    margin: 20px auto;  /* Centers the article section horizontally */
+}
+
+.article-list a {
+    display: block;
+    color: #007BFF;
+    text-decoration: none;
+    padding: 5px 0;
+}
+
+.article-list a:hover {
+    text-decoration: underline;
+}
+
+/* Tab Styling */
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.tabs div {
+    padding: 10px 20px;
+    background-color: #ddd;
+    cursor: pointer;
+    margin: 0 5px;
+    border-radius: 5px;
+}
+
+.tabs div.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Answer Display */
+.answer {
+    width: 100%;  /* Makes the answer section take full width */
+    max-width: 500px;  /* Matches the max-width of the form-group */
+    margin: 20px auto;  /* Centers the answer section horizontally */
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Home button */
+.home-btn {
+    position: absolute; /* Position it absolutely relative to the container */
+    top: 20px; /* Space from the top of the page */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Center the button */
+    z-index: 999; /* Make sure it's above other elements */
+}
+
+#home-btn {
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Green color */
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;  /* Space between icon and text (if needed) */
+    width: auto; /* Button takes width based on content */
+    max-width: 150px; /* Optional: Set max width if needed */
+}
+
+#home-btn i {
+    font-size: 24px; /* Icon size */
+}
+
+#home-btn:hover {
+    background-color: #45a049;
+}
+
+/* Sidebar on mobile */
+@media screen and (max-width: 768px) {
+    /* Remove the sidebar on mobile */
+    .sidebar {
+        display: none; /* Hide the sidebar on small screens */
+    }
+
+    /* Make container take full width */
+    .container {
+        margin-left: 0;
+        width: 100%; /* Use full width */
+        padding: 10px; /* Reduce padding */
+    }
+
+    /* Adjust Home button */
+    .home-btn {
+        top: 10px; /* Adjust position on smaller screens */
+        left: 50%; /* Center horizontally */
+        transform: translateX(-50%);
+    }
+
+    /* Stack tabs vertically on smaller screens */
+    .tabs {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .tabs div {
+        margin-bottom: 10px;
+    }
+
+    /* Smaller font and padding on mobile */
+    h1 {
+        padding-top: 70px; /* Adjust space for home button */
+    }
+
+    input[type="text"] {
+        font-size: 14px; /* Smaller font size for input */
+    }
+
+    button {
+        font-size: 14px; /* Smaller font size for button */
+    }
+
+    /* Display history at the bottom of the answer section on small screens */
+    .history {
+        margin-top: 30px; /* Add some margin to the top */
+        padding-top: 20px;
+        border-top: 1px solid #ccc; /* Divider */
+    }
+}
+
+/* For larger screens, keep the history in the sidebar */
+@media screen and (min-width: 769px) {
+    .history {
+        display: none; /* Hide history on larger screens */
+    }
+}
