@@ -2,3 +2,4 @@ Flask
 requests
 rank_bm25
 nltk
+gunicorn

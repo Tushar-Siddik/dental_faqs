@@ -1,7 +1,11 @@
 import re
 import random
 from rank_bm25 import BM25Okapi
+import nltk
 from nltk.tokenize import word_tokenize
+
+nltk.download('punkt')
+nltk.download('punkt_tab')
 
 app_name = ["Dentist Sara", "Dr. Sabiha Akter Sara"]
 developer_name = "Siddiqur Rahman, an artificial intelligence enthusiast"
